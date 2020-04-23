@@ -1,0 +1,30 @@
+{
+    "imports": {
+        "sequelize-typescript": [
+            "Table",
+            "Model",
+            "PrimaryKey",
+            "Column",
+            "DataType",
+            "AutoIncrement",
+            "Default",
+            "Comment",
+            "ForeignKey",
+            "BelongsTo"
+        ],
+        "type-graphql": [
+            "ObjectType",
+            "Field",
+            "Int",
+            "Resolver",
+            "Query",
+            "Arg",
+            "Ctx",
+            "Mutation",
+            "Authorized",
+            "UseMiddleware",
+            "InputType"
+        ]
+    },
+    "data": {}
+}

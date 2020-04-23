@@ -1,0 +1,41 @@
+{{#each this.tableData}}
+#begin_file
+{{fileName '' (camelcase this.tablename true) '.ts'}}
+
+
+@{{import 'ObjectType'}}('{{camelcase this.tablename true}}')
+@{{import 'Table'}}({
+    tableName: '{{this.tablename}}',
+    modelName: '{{camelcase this.tablename true}}',
+    updatedAt: false,
+    createdAt: false
+})
+export default class {{camelcase this.tablename true}} extends {{import 'Model'}}<{{camelcase this.tablename true}}>{
+    {{#each this.fields}}
+    {{#if this.isForeignKey}}
+    @{{import 'ForeignKey'}}(() => {{import (camelcase this.foreignKey.target_table true)}})
+    {{/if}}
+    {{#if this.isPrimaryKey}}
+    @{{import 'PrimaryKey'}}
+    {{/if}}
+    {{#if this.isIdentity}}
+    @{{import 'AutoIncrement'}}
+    {{/if}}
+    {{#if this.isSerialKey}}
+    @{{import 'AutoIncrement'}}
+    {{/if}}
+    @{{import 'Field'}}({{#if (isGqlType this.type)}}type => {{import (gqlType this.type)}}, {{/if}}{ nullable: {{this.allowNull}} })
+    @{{import 'Column'}}({
+        type: {{import 'DataType'}}.{{datatype this.type}}
+    })
+    {{this.name}}: {{memberDef (datatype this.type)}};
+
+    {{#if this.isForeignKey}}
+    @{{import 'Field'}}()
+    @{{import 'BelongsTo'}}(() => {{import (camelcase this.foreignKey.target_table true)}})
+    {{import (lower this.foreignKey.target_table)}}: {{import (camelcase this.foreignKey.target_table true)}};
+    
+    {{/if}}
+    {{/each}}
+}
+{{/each}}

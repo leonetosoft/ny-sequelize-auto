@@ -1,0 +1,9 @@
+.DS_Store
+lib
+lib-esm
+node_modules
+_bundles
+package-lock.json
+.env.pg
+.env.mysql
+build
